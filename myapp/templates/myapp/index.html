@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text to Speech</title>
+</head>
+
+<body>
+    <h1>Text to Speech Application</h1>
+    <br>
+    <form action="{% url 'myapp:make-audio' %}" method="post">
+        {% csrf_token %}
+
+        <label for="message">Đoạn thoại : </label><br>
+        <textarea id="message" name="message" rows="6" cols="50"></textarea><br>
+
+        <input type="submit" value="Gửi">
+    </form>
+    {% if audio_id %}
+        <p>Số hiệu bản mp3 : {{ audio_id }}</p>
+        <audio controls autoplay>
+            <source src="{% static 'audio'|add:audio_id|stringformat:'s.mp3' %}" type="audio/mp3">
+        </audio>
+    {% else %}
+        <p>Số hiệu bản mp3 : {{ audio_id }}</p>
+        <audio controls>
+            <source src="" type="audio/mp3">
+        </audio>
+    {% endif %}
+    <a href="https://console.fpt.ai" target="_blank">Trang nguồn</a>
+</body>
+
+</html>
