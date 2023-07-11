@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="text-center">
+          <div class="mb-3">
+            {% if user.customuser.profile_picture %}
+              <img src="{{ user.customuser.profile_picture.url }}" class="img-thumbnail" alt="Profile Picture">
+            {% else %}
+              <img src="{% static 'profile/chatgpt_logo.png' %}" class="img-thumbnail" alt="Default Profile Picture">
+            {% endif %}
+          </div>
+          <h4>{{ user.username }}</h4>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="id_first_name">First Name:</label>
+            <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{ form.first_name.value }}">
+          </div>
+          <div class="form-group">
+            <label for="id_last_name">Last Name:</label>
+            <input type="text" class="form-control" id="id_last_name" name="last_name" value="{{ form.last_name.value }}">
+          </div>
+          <div class="form-group">
+            <label for="id_email">Email:</label>
+            <input type="email" class="form-control" id="id_email" name="email" value="{{ form.email.value }}">
+          </div>
+          <div class="form-group">
+            <label for="id_password">Password:</label>
+            <div class="input-group">
+                <input type="password" class="form-control" id="id_password" name="password" value="{{ form.raw_password.value }}" placeholder="*********">
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    <i id="password-toggle" class="fa fa-eye" onclick="togglePasswordVisibility()"></i>
+                  </span>
+                </div>
+              </div>
+              
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Script để xử lý hiển thị mật khẩu
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("id_password");
+        var passwordToggle = document.getElementById("password-toggle");
+    
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          passwordToggle.classList.remove("fa-eye");
+          passwordToggle.classList.add("fa-eye-slash");
+        } else {
+          passwordInput.type = "password";
+          passwordToggle.classList.remove("fa-eye-slash");
+          passwordToggle.classList.add("fa-eye");
+        }
+      } 
+  </script>
+  
+{% endblock %}

@@ -1,0 +1,22 @@
+<!-- chatgpt_conversation.html -->
+{% extends 'admin_app/chatgpt.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% comment %} {% block conversation_list %}{% endblock %} {% endcomment %}
+
+
+{% block chatcontent %}
+  {% for message in messages %}
+            <div class="message {% if message.is_user %}user-message{% else %}bot-message{% endif %}">
+              <div class="message-content">
+                {% if message.is_user %}
+                  <p><strong>{{ conversation.user.username }}:</strong> {{ message.content }}</p>
+                {% else %}
+                  <div class="bot-info">
+                    <p><img src="{% static 'chatgpt_logo.png' %}" alt="Logo của Bot" class='bot-logo'>: {{ message.content }}</p>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+  {% endfor %}
+{% endblock %}
