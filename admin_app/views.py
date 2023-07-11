@@ -25,6 +25,8 @@ def login_view(request):
 
 @login_required(login_url='admin_app:login')
 def home_view(request):
+    audio=Audio.objects.all()
+    print(audio)
     # Nếu người dùng đã đăng nhập, chuyển hướng đến trang home
     if request.user.is_authenticated:
         return render(request, 'admin_app/home.html')
