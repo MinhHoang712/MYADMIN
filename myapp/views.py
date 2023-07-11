@@ -8,10 +8,7 @@ audio_id = 1
 
 def home(request):
     audio_path = request.GET.get('audio_path')
-    if audio_path:
-        print("Get OK : ", audio_path)
-    else :
-        print("Fail to get:", audio_path)
+    
     context = {
         'audio_path': audio_path
     }
@@ -19,10 +16,13 @@ def home(request):
 
 def make_audio(request):
     url = 'https://api.fpt.ai/hmi/tts/v5'
+
     if request.method == 'GET':
         return JsonResponse({'error' : "Sai phương thức"})
+
     if request.method == 'POST':
         payload = request.POST.get('message')
+        speed = request.POST.get('speed')
 
         headers = {
             'api-key': 'QZjlL4U8P8HMRNpj6Q7ZB6XUTFTbxhGV',
@@ -36,7 +36,7 @@ def make_audio(request):
             print(response.json()["message"])
             raise ValueError()
         
-        time.sleep(2)
+        time.sleep(3)
 
         audio_url = response.json()["async"]
 
@@ -46,5 +46,6 @@ def make_audio(request):
 
         with open(audio_path, 'wb') as audio_file:
             audio_file.write(requests.get(audio_url).content)
+        print(f"saved audio{audio_id}.mp3")
         return redirect(f'/audio?audio_id={audio_id}')
     return JsonResponse({'error': 'Invalid request'})

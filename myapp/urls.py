@@ -5,5 +5,6 @@ app_name = 'myapp'
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('make-audio/', views.make_audio, name='make-audio')
+    path('make-audio/', views.make_audio, name='make-audio'),
+    path('make-audio/<int:audio_id>', views.make_audio)
 ]
