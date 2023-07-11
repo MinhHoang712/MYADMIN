@@ -1,0 +1,32 @@
+# Byte-compiled / optimized Python files
+*.pyc
+__pycache__/
+
+# Django-related files and directories
+*.log
+db.sqlite3
+media/
+static/
+
+# Ignore the virtual environment
+venv/
+.env
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# Ignore local settings
+local_settings.py
+
+# Ignore deployment files
+*.bak
+*.tar.gz
+*.tar
+*.gz
+*.zip
+*.egg-info/
+dist/
+build/
